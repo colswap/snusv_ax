@@ -6,7 +6,7 @@ SNUSV 운영 자동화 모음. 서버 없이 GitHub Actions에서 하루 한 번
 
 | 자동화 | 하는 일 | 실행 |
 |---|---|---|
-| [`finance_reminder`](automations/finance_reminder/) | 회계 채널에서 ✅가 안 달린 정산 요청을 매일 회계 담당자에게 DM | 매일 10:07 KST |
+| [`finance_reminder`](automations/finance_reminder/) | 회계 채널에서 ✅가 안 달린 정산 요청을 매일 회계 담당자에게 DM | 매일 09:00 KST |
 
 ## 설계 원칙
 
