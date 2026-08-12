@@ -22,6 +22,44 @@ Slack은 2025년 5월부터 마켓플레이스 외부에 배포된 앱의 채널
 
 ---
 
+## 처음 설치하기
+
+한 번만 하면 되는 작업이다. 순서를 지킨다.
+
+### 1. Slack 앱 만들기
+
+1. https://api.slack.com/apps → Create New App → From scratch
+2. OAuth & Permissions → Bot Token Scopes에 넷을 추가한다
+   - `channels:history` · `usergroups:read` · `chat:write` · `im:write`
+3. Install to Workspace → Bot User OAuth Token(`xoxb-`) 복사
+4. **배포(Distribute App)는 켜지 않는다.** 위 경고 참조
+
+### 2. 봇을 회계 채널에 초대
+
+회계 채널에서 `/invite @봇이름`. 스코프만으로는 히스토리를 못 읽는다.
+
+### 3. 회계 User Group 만들기
+
+Slack → 좌측 사이드바 → 사용자 그룹 → 새 그룹. 핸들을 정하고(예: `accounting`) 이번 기수 회계 담당자를 멤버로 넣는다.
+
+**기수가 바뀌면 이 그룹의 멤버만 교체한다.** 그래서 코드를 안 건드려도 된다.
+
+### 4. GitHub 설정값 입력
+
+레포 → Settings → Secrets and variables → Actions. 아래 "설정값 전체" 표대로 채운다.
+
+채널 ID는 Slack에서 채널 우클릭 → 링크 복사 → URL 끝의 `C`로 시작하는 문자열이다.
+
+### 5. 드라이런으로 검증
+
+Actions → "회계 송금 리마인더" → Run workflow → `dry_run` 체크한 채로 실행.
+
+로그에 조회 건수와 미처리 목록, 수신자가 찍힌다. DM은 나가지 않는다. **여기서 이상이 없어야 실제 발송을 맡긴다.**
+
+### 6. 첫 자동 실행 확인
+
+다음 날 10:07 KST 이후 Actions 탭에서 실행 기록을 확인한다.
+
 ## 기수가 바뀌었을 때
 
 1. GitHub 레포 → Settings → Secrets and variables → Actions → **Variables** 탭
