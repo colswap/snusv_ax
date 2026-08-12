@@ -1,0 +1,39 @@
+name: 회계 송금 리마인더
+
+on:
+  schedule:
+    # 매일 01:07 UTC = 10:07 KST.
+    # 정각을 피한 이유는 GitHub Actions cron이 정각에 부하가 몰려 지연되기 때문이다.
+    - cron: "7 1 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "DM을 보내지 않고 판정 결과만 출력"
+        type: boolean
+        default: true
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: 리마인더 실행
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          FINANCE_CHANNEL_ID: ${{ vars.FINANCE_CHANNEL_ID }}
+          ACCOUNTANT_USERGROUP: ${{ vars.ACCOUNTANT_USERGROUP }}
+          COHORT_START_DATE: ${{ vars.COHORT_START_DATE }}
+          REMIND_AFTER_HOURS: ${{ vars.REMIND_AFTER_HOURS }}
+          DONE_EMOJI: ${{ vars.DONE_EMOJI }}
+          SKIP_EMOJI: ${{ vars.SKIP_EMOJI }}
+        run: |
+          python -m automations.finance_reminder.main \
+            ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '--dry-run' || '' }}
