@@ -1,0 +1,41 @@
+# Slack 앱 설정. https://api.slack.com/apps → Create New App → From a manifest 에서 이 파일을 붙여넣는다.
+#
+# 스코프를 문서가 아니라 파일로 두는 이유: 문서와 실제 설정은 반드시 어긋난다.
+# 앱을 다시 만들어야 할 때(워크스페이스 이전, 토큰 사고 등) 이 파일 하나면 된다.
+#
+# 이 앱은 앞으로 추가될 자동화가 공유한다. 자동화마다 앱을 만들면 기수 교체 시
+# 토큰을 개수만큼 재발급해야 한다.
+
+_metadata:
+  major_version: 2
+  minor_version: 1
+
+display_information:
+  name: SNUSV 자동화
+  description: 회계 정산 리마인더 등 운영 자동화를 담당하는 봇
+  background_color: "#2c2d30"
+
+features:
+  bot_user:
+    # a-z, 0-9, -, _, . 만 허용된다. 한글과 공백은 못 쓴다.
+    display_name: snusv-ax
+    always_online: false
+
+oauth_config:
+  scopes:
+    bot:
+      # 회계 채널 히스토리 조회. 채널이 비공개면 groups:history 로 바꾼다.
+      - channels:history
+      # 회계 담당자 User Group 멤버 조회
+      - usergroups:read
+      # DM 발송
+      - chat:write
+      # DM 채널 열기
+      - im:write
+
+settings:
+  # 상시 서버를 두지 않으므로 소켓 모드가 필요 없다. docs/adr/0001 참조.
+  socket_mode_enabled: false
+  org_deploy_enabled: false
+  # 켜면 토큰이 만료되어 갱신 로직이 필요해진다. 하루 한 번 도는 스크립트에는 과하다.
+  token_rotation_enabled: false

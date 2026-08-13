@@ -28,11 +28,15 @@ Slack은 2025년 5월부터 마켓플레이스 외부에 배포된 앱의 채널
 
 ### 1. Slack 앱 만들기
 
-1. https://api.slack.com/apps → Create New App → From scratch
-2. OAuth & Permissions → Bot Token Scopes에 넷을 추가한다
-   - `channels:history` · `usergroups:read` · `chat:write` · `im:write`
-3. Install to Workspace → Bot User OAuth Token(`xoxb-`) 복사
-4. **배포(Distribute App)는 켜지 않는다.** 위 경고 참조
+1. https://api.slack.com/apps → Create New App
+2. **From a manifest** 를 고른다 (`Upload JSON or YAML config`)
+3. 워크스페이스를 선택하고, 레포의 [`slack-app-manifest.yml`](slack-app-manifest.yml) 내용을 붙여넣는다
+4. Install to Workspace → Bot User OAuth Token(`xoxb-`로 시작) 복사
+5. **배포(Distribute App)는 켜지 않는다.** 위 경고 참조
+
+매니페스트에 스코프 넷이 이미 들어 있으므로 권한을 손으로 고를 필요가 없다.
+
+> 화면에 **AI agent / Starter app / From a manifest / Blank app** 이 보인다. 예전에는 "From scratch"였던 것이 **Blank app**으로 이름이 바뀌었다. Blank app으로 만들어도 되지만, 그러면 OAuth & Permissions에서 스코프 넷(`channels:history` · `usergroups:read` · `chat:write` · `im:write`)을 손으로 추가해야 하고 빠뜨리기 쉽다. **From a manifest 를 권한다.**
 
 ### 2. 봇을 회계 채널에 초대
 
