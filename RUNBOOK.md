@@ -64,8 +64,13 @@ Actions → "회계 송금 리마인더" → Run workflow → `dry_run` 체크�
 
 1. GitHub 레포 → Settings → Secrets and variables → Actions → **Variables** 탭
 2. `COHORT_START_DATE`를 새 기수 시작일(`YYYY-MM-DD`)로 수정
+3. `README.md` 맨 위의 "현 기수" 줄을 새 기수로 수정
 
-코드는 건드리지 않는다. 이 한 줄이 전부다.
+**코드는 건드리지 않는다.**
+
+3번은 동작에 영향이 없지만, 빠뜨리면 README와 실제 설정이 어긋나 다음 사람이 헷갈린다. 동작을 결정하는 값은 언제나 `COHORT_START_DATE`다.
+
+회계 담당자도 함께 바뀌었다면 아래 항목을 이어서 본다.
 
 ## 회계 담당자가 바뀌었을 때
 
