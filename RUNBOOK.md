@@ -31,8 +31,21 @@ Slack은 2025년 5월부터 마켓플레이스 외부에 배포된 앱의 채널
 1. https://api.slack.com/apps → Create New App
 2. **From a manifest** 를 고른다 (`Upload JSON or YAML config`)
 3. 워크스페이스를 선택하고, 레포의 [`slack-app-manifest.yml`](slack-app-manifest.yml) 내용을 붙여넣는다
-4. Install to Workspace → Bot User OAuth Token(`xoxb-`로 시작) 복사
+4. 좌측 **OAuth & Permissions** → `Install to Workspace` → **Bot User OAuth Token**(`xoxb-`로 시작) 복사
 5. **배포(Distribute App)는 켜지 않는다.** 위 경고 참조
+
+> **필요한 값은 `xoxb-` 토큰 하나뿐이다.** Basic Information 페이지의 App Credentials가 먼저 눈에 띄지만 그것들은 쓰지 않는다.
+>
+> | 값 | 용도 | 이 봇이 쓰나 |
+> |---|---|---|
+> | Client ID / Secret | OAuth 인증 흐름 (남의 워크스페이스에 설치할 때) | ✗ |
+> | Signing Secret | Slack이 **우리 서버로** 보내는 요청을 검증할 때 | ✗ (서버가 없다) |
+> | Verification Token | 위의 구버전, 폐기 예정 | ✗ |
+> | **Bot User OAuth Token** | Web API 호출 | **✓** |
+>
+> 이 봇은 요청을 받지 않고 Slack을 호출하기만 하므로 Signing Secret이 필요 없다.
+>
+> **`xoxb-` 토큰은 채널 히스토리를 읽고 DM을 보낼 수 있는 실제 권한이다.** 채팅·문서·레포 어디에도 붙여넣지 말고 GitHub Secrets에 직접 입력한다. 실수로 노출했다면 즉시 위의 "봇 토큰을 재발급해야 할 때" 절차를 따른다.
 
 매니페스트에 스코프 넷이 이미 들어 있으므로 권한을 손으로 고를 필요가 없다. 4단계 화면에서 **Bot Token Scopes에 넷이 들어 있는지 눈으로 확인**한다.
 
