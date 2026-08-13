@@ -34,7 +34,11 @@ Slack은 2025년 5월부터 마켓플레이스 외부에 배포된 앱의 채널
 4. Install to Workspace → Bot User OAuth Token(`xoxb-`로 시작) 복사
 5. **배포(Distribute App)는 켜지 않는다.** 위 경고 참조
 
-매니페스트에 스코프 넷이 이미 들어 있으므로 권한을 손으로 고를 필요가 없다.
+매니페스트에 스코프 넷이 이미 들어 있으므로 권한을 손으로 고를 필요가 없다. 4단계 화면에서 **Bot Token Scopes에 넷이 들어 있는지 눈으로 확인**한다.
+
+> **"Install Slack CLI" 화면이 뜨면 무시하고 넘어간다.** `slack login` · `slack create` · `slack run` 은 Slack 차세대 플랫폼(Bolt/Deno) 앱을 만들 때 쓰는 것이고, 이 봇과는 무관하다. 이 봇은 GitHub Actions에서 도는 파이썬 스크립트이며 Web API만 호출한다. 그 플랫폼은 Slack 유료 플랜도 요구한다 — [0005](docs/adr/0005-build-instead-of-buying-a-triage-tool.md) 참조.
+>
+> 좌측 메뉴에서 **OAuth & Permissions** 로 바로 이동하면 된다.
 
 > 화면에 **AI agent / Starter app / From a manifest / Blank app** 이 보인다. 예전에는 "From scratch"였던 것이 **Blank app**으로 이름이 바뀌었다. Blank app으로 만들어도 되지만, 그러면 OAuth & Permissions에서 스코프 넷(`channels:history` · `usergroups:read` · `chat:write` · `im:write`)을 손으로 추가해야 하고 빠뜨리기 쉽다. **From a manifest 를 권한다.**
 
